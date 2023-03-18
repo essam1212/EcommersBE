@@ -7,9 +7,11 @@ import brandModel from "../../../../DB/model/Brand.model.js";
 
 export const createBrand = asyncHandler(
     async (req, res, next) => {
-       
+        if (!req.file) {
+            return next(new Error('Image is required', { cause: 400 }))
+        } else {
 
-            const { secure_url, public_id } = await cloudinary.uploader.upload(req.path, { folder: `OnlineCommerce/Brand` })
+            const { secure_url, public_id } = await cloudinary.uploader.upload(req.file.path, { folder: `OnlineCommerce/Brand` })
             const { name } = req.body
             const brand = await create({
                 model: brandModel,
@@ -23,7 +25,7 @@ export const createBrand = asyncHandler(
             })
             return brand ? res.status(201).json({ message: "Done", brand }) :
                 next(new Error('Fail to add new brand', { cause: 400 }))
-        
+        }
 
     })
 
