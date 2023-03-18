@@ -9,15 +9,15 @@ export const createBrand = asyncHandler(
     async (req, res, next) => {
        
 
-            const { secure_url, public_id } = await cloudinary.uploader.upload(req.file.path, { folder: `OnlineCommerce/Brand` })
+            // const { secure_url, public_id } = await cloudinary.uploader.upload(req.file.path, { folder: `OnlineCommerce/Brand` })
             const { name } = req.body
             const brand = await create({
                 model: brandModel,
                 data: {
                     name,
                     slug: slugify(name),
-                    image: secure_url,
-                    imagePublicId: public_id,
+                    // image: secure_url,
+                    // imagePublicId: public_id,
                     createdBy: req.user._id,
                 }
             })
