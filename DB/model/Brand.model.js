@@ -12,7 +12,11 @@ const brandSchema = new Schema({
 
     },
     slug: String,
-    image: String,
+    image: {
+        
+        type: String,
+        required: [true, 'Image is required'],
+    },
     imagePublicId: String,
     createdBy: {
         type: Types.ObjectId,
